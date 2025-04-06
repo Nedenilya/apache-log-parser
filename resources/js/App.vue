@@ -1,3 +1,9 @@
+<script setup>
+import ApacheLogs from './pages/ApacheLogs.vue';
+</script>
+
 <template>
-    How To Install Vue 3 in Laravel 9 with Vite - TechvBlogs
+  <ApacheLogs />
 </template>
+
+<style scoped></style>
