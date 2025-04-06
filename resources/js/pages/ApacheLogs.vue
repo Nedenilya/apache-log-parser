@@ -18,7 +18,7 @@ export default {
     async parseLogs(){
         const { data } = await axios.post('/api/parse-logs', {}, {});
     },
-    async fetchLogs(url) {
+    async fetchLogs(url = '/api/logs') {
       const { data } = await axios.get(url, {
         params: {
           ...this.filters,
@@ -39,7 +39,7 @@ export default {
   },
   mounted() {
     this.parseLogs();
-    this.fetchLogs('/api/logs');
+    this.fetchLogs();
   },
 };
 </script>
@@ -47,8 +47,11 @@ export default {
 <template>
     <div>
       <div  class="filters">
-        <input v-model="filters.ip" placeholder="Фильтр IP" @input="applyFilters" />
-        <input v-model="filters.status_code" placeholder="Фильтр Status Code" @input="applyFilters" />
+        <p>Filters:</p>
+        <input v-model="filters.hostname" placeholder="Hostname" @input="applyFilters" />
+        <input v-model="filters.ip" placeholder="IP" @input="applyFilters" />
+        <input v-model="filters.status_code" placeholder="Status Code" @input="applyFilters" />
+        <input v-model="filters.request_method" placeholder="Request Method" @input="applyFilters" />
       </div>
 
       <table>

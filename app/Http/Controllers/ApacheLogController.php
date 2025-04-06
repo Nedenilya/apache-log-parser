@@ -27,11 +27,17 @@ class ApacheLogController extends Controller
     {
         $query = ApacheLog::query();
 
-        if ($request->ip) {
-            $query->where('ip', 'like', '%' . $request->ip . '%');
-        }
-        if ($request->status_code) {
-            $query->where('status_code', 'like', '%' . $request->status_code . '%');
+        $filters = [
+            'hostname' => $request->hostname,
+            'ip' => $request->ip,
+            'status_code' => $request->status_code,
+            'request_method' => $request->request_method,
+        ];
+        
+        foreach ($filters as $field => $value) {
+            if ($value) {
+                $query->where($field, 'like', '%' . $value . '%');
+            }
         }
 
         $logs = $query->orderBy($request->get('sort_by', 'timestamp'), $request->get('sort_dir', 'asc'))
